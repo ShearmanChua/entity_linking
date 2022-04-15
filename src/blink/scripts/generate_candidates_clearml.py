@@ -177,8 +177,9 @@ biencoder_params["degug"] = False
 biencoder_params["data_parallel"] = True
 biencoder_params["no_cuda"] = False
 biencoder_params["max_context_length"] = 32
-# biencoder_params["encode_batch_size"] = args.batch_size
-biencoder_params["encode_batch_size"] = 8
+biencoder_params["encode_batch_size"] = args.batch_size
+# biencoder_params["encode_batch_size"] = 16
+print(biencoder_params)
 
 saved_cand_ids = os.path.join(dataset_obj_prefix,getattr(args, 'saved_cand_ids', None))
 encoding_save_file_dir = gettempdir()
