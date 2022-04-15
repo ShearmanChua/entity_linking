@@ -180,7 +180,7 @@ biencoder_params["max_context_length"] = 32
 # biencoder_params["encode_batch_size"] = args.batch_size
 biencoder_params["encode_batch_size"] = 8
 
-saved_cand_ids = getattr(args, 'saved_cand_ids', None)
+saved_cand_ids = os.path.join(dataset_obj_prefix,getattr(args, 'saved_cand_ids', None))
 encoding_save_file_dir = gettempdir()
 if encoding_save_file_dir is not None and not os.path.exists(encoding_save_file_dir):
     os.makedirs(encoding_save_file_dir, exist_ok=True)
@@ -196,7 +196,7 @@ candidate_pool = load_candidate_pool(
     biencoder.tokenizer,
     biencoder_params,
     logger,
-    getattr(args, 'saved_cand_ids', None),
+    os.path.join(dataset_obj_prefix,getattr(args, 'saved_cand_ids', None)),
 )
 if args.test:
     candidate_pool = candidate_pool[:10]
