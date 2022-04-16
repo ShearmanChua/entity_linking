@@ -14,7 +14,7 @@ def create_dataset(folder_path, dataset_project, dataset_name):
     parent_dataset = _get_last_child_dataset(dataset_project, dataset_name)
     if parent_dataset:
         print("create child")
-        parent_dataset.finalize()
+        # parent_dataset.finalize()
         child_dataset = Dataset.create(
             dataset_name, dataset_project, parent_datasets=[parent_dataset]
         )
@@ -79,10 +79,10 @@ if __name__ == "__main__":
     # else:
     #     print("Error!")
 
-    task = Task.init(project_name="BLINK", task_name="upload embeddings file")
-    dataset = create_dataset(
-        folder_path="models",
-        dataset_project="BLINK/dataset",
-        dataset_name="BLINK_models",
-    )
+    task = Task.init(project_name="BLINK/task", task_name="upload data")
+    dataset = Dataset.create(
+            dataset_project="BLINK/dataset", dataset_name="new_candidate_embeddings"
+        )
+    dataset.add_files("models/new_candidate_embeddings.t7")
+    dataset.upload(output_url='s3://experiment-logging/storage')
     dataset.finalize()

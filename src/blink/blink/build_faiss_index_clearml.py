@@ -1,3 +1,4 @@
+from telnetlib import OUTMRK
 from clearml import Task,TaskTypes,Dataset
 
 PROJECT_TASK_NAME = "BLINK/task"
@@ -21,6 +22,7 @@ import numpy
 import os
 import time
 import torch
+from tempfile import gettempdir
 
 from blink.indexer.faiss_indexer import DenseFlatIndexer, DenseHNSWFlatIndexer
 import blink.candidate_ranking.utils as utils
@@ -28,11 +30,7 @@ import blink.candidate_ranking.utils as utils
 logger = utils.get_logger()
 
 def main(params): 
-    output_path = params["output_path"]
-    output_dir, _ = os.path.split(output_path)
-    if not os.path.exists(output_dir):
-        os.makedirs(output_dir)
-    logger = utils.get_logger(output_dir)
+    OUTPUT_DATASET = params["output_dataset"]
 
     logger.info("Loading candidate encoding from path: %s" % params["candidate_encoding"])
     datasets_dict = Dataset.list_datasets(
@@ -67,7 +65,15 @@ def main(params):
     logger.info("Done indexing data.")
 
     if params.get("save_index", None):
-        index.serialize(output_path)
+        index.serialize(os.path.join( gettempdir(),"faiss_index.pkl"))
+
+    dataset = Dataset.create(
+        dataset_project=PROJECT_DATASET_NAME, dataset_name= OUTPUT_DATASET
+    )
+
+    dataset.add_files(os.path.join(gettempdir(), 'faiss_index.pkl'))
+    dataset.upload(output_url="s3://experiment-logging/storage")
+    dataset.finalize()
 
 def create_dataset(file_to_add, dataset_project, dataset_name):
     """
@@ -108,10 +114,10 @@ def _get_last_child_dataset(dataset_project, dataset_name):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        "--output_path",
+        "--output_dataset",
         required=True,
         type=str,
-        help="output file path",
+        help="output dataset",
     )
     parser.add_argument(
         "--candidate_encoding",
