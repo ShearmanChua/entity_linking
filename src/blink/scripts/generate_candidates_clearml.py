@@ -214,13 +214,22 @@ print("Saving in: {}".format(save_file))
 if save_file is not None:
     f = open(save_file, "w").close()  # mark as existing
 
-candidate_encoding = encode_candidate(
-    biencoder,
-    candidate_pool[args.chunk_start:args.chunk_end],
-    biencoder_params["encode_batch_size"],
-    biencoder_params["silent"],
-    logger,
-)
+if candidate_pool.shape[0] <2:
+    candidate_encoding = encode_candidate(
+        biencoder,
+        candidate_pool,
+        biencoder_params["encode_batch_size"],
+        biencoder_params["silent"],
+        logger,
+    )
+else:
+    candidate_encoding = encode_candidate(
+        biencoder,
+        candidate_pool[args.chunk_start:args.chunk_end],
+        biencoder_params["encode_batch_size"],
+        biencoder_params["silent"],
+        logger,
+    )
 
 if save_file is not None:
     torch.save(candidate_encoding, save_file)

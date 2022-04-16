@@ -1,4 +1,4 @@
-from clearml import Dataset
+from clearml import Dataset,Task
 import argparse
 
 OUTPUT_URL = "s3://derekchiaxyz/storage"
@@ -61,20 +61,28 @@ if __name__ == "__main__":
 
     > python create_dataset_from_local_path.py --folder_path "/home/derek/Desktop/project-m/data/maritime/fleetmon-news/details" --dataset_project "project-m/dataset" --dataset_name "maritime_fleetmon_news_html_all"
     """
-    parser = argparse.ArgumentParser(description="Create dataset from local path")
-    parser.add_argument("--folder_path", type=str, required=False)
-    parser.add_argument("--dataset_project", type=str, required=True)
-    parser.add_argument("--dataset_name", type=str, required=True)
-    args = parser.parse_args()
+    # parser = argparse.ArgumentParser(description="Create dataset from local path")
+    # parser.add_argument("--folder_path", type=str, required=False)
+    # parser.add_argument("--dataset_project", type=str, required=True)
+    # parser.add_argument("--dataset_name", type=str, required=True)
+    # args = parser.parse_args()
 
-    result = create_dataset_and_finalize(
-        args.folder_path, args.dataset_project, args.dataset_name
+    # result = create_dataset_and_finalize(
+    #     args.folder_path, args.dataset_project, args.dataset_name
+    # )
+    # if result:
+    #     print(
+    #         "{} - {} created with files from {}".format(
+    #             args.folder_path, args.dataset_project, args.dataset_name
+    #         )
+    #     )
+    # else:
+    #     print("Error!")
+
+    task = Task.init(project_name="BLINK", task_name="upload embeddings file")
+    dataset = create_dataset(
+        folder_path="models",
+        dataset_project="BLINK/dataset",
+        dataset_name="BLINK_models",
     )
-    if result:
-        print(
-            "{} - {} created with files from {}".format(
-                args.folder_path, args.dataset_project, args.dataset_name
-            )
-        )
-    else:
-        print("Error!")
+    dataset.finalize()

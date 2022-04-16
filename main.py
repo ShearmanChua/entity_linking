@@ -11,7 +11,7 @@ config = {
     "biencoder_model": models_path+"biencoder_wiki_large.bin",
     "biencoder_config": models_path+"biencoder_wiki_large.json",
     "entity_catalogue": models_path+"new_entity.jsonl",
-    "entity_encoding": models_path+"new_entities_large.t7",
+    "entity_encoding": models_path+"new_candidate_embeddings.t7",
     "crossencoder_model": models_path+"crossencoder_wiki_large.bin",
     "crossencoder_config": models_path+"crossencoder_wiki_large.json",
     "fast": False, # set this to be true if speed is a concern
@@ -61,6 +61,14 @@ data_to_link = [ {
                     "context_left": "".lower(),
                     "mention": "Obama".lower(),
                     "context_right": "has also gone kite-surfing with billionaire Richard Branson, spoken with young leaders in Chicago and paid a visit to his home state of Hawaii.".lower(),
+                },
+                {
+                    "id": 5,
+                    "label": "unknown",
+                    "label_id": -1,
+                    "context_left": "While COVID-related requirements vary widely across China, many localities have been taking increasingly cautious approaches recently. Dong said that his order numbers and earnings had dropped by half since the start of March due to the impact of the".lower(),
+                    "mention": "COVID-19".lower(),
+                    "context_right": "policies he had encountered.".lower(),
                 }
                 ]
 

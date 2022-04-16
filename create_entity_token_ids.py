@@ -37,14 +37,12 @@ entities = []
 
 print("Reading entity json file")
 
-with open('./models/entity.jsonl') as f:
+with open('models/entities_to_add.jsonl') as f:
     for i, line in enumerate(f):
         entity = json.loads(line)
         entities.append(entity)
 
-entities.append(
-    {'text': 'Shearman Chua was born in Singapore, in the year 1996. He is an alumnus of NTU and is currently working at DSTA', 'idx': 'https://en.wikipedia.org/wiki?curid=88767376', 'title': 'Shearman Chua', 'entity': 'Shearman Chua'}
-)
+print(entities)
 
 print("Generating token_ids")
 
@@ -72,4 +70,4 @@ for entity in entities:
     ids.append(token_ids)
 
 ids = torch.tensor(ids)
-torch.save(ids, models_path+"new_entities_large.json")
+torch.save(ids, models_path+"new_entities.json")

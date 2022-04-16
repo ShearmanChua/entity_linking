@@ -1,0 +1,1 @@
+python3 src/blink/scripts/add_candidate_embeddings.py --path_to_initial_embeddings "models/all_entities_large.t7" --path_to_new_embeddings "models/0_3.t7" --output_dir "models" 
