@@ -4,7 +4,7 @@ from clearml import Task,TaskTypes,Dataset
 PROJECT_TASK_NAME = "BLINK/task"
 PROJECT_DATASET_NAME = "BLINK/dataset"
 TASK_NAME = "generate FAISS index"
-INPUT_DATASET = "BLINK_models"
+INPUT_DATASET = "new_candidate_embeddings"
 OUTPUT_DATASET = "FAISS_index"
 
 task = Task.init(project_name=PROJECT_TASK_NAME, task_name=TASK_NAME)

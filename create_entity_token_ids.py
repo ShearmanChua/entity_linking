@@ -9,22 +9,16 @@ import torch
 
 models_path = "models/" # the path where you stored the BLINK models
 
-config = {
-    "test_entities": None,
-    "test_mentions": None,
-    "interactive": False,
-    "top_k": 10,
-    "biencoder_model": models_path+"biencoder_wiki_large.bin",
-    "biencoder_config": models_path+"biencoder_wiki_large.json",
-    "entity_catalogue": models_path+"new_entity.jsonl",
-    "entity_encoding": models_path+"all_entities_large.t7",
-    "crossencoder_model": models_path+"crossencoder_wiki_large.bin",
-    "crossencoder_config": models_path+"crossencoder_wiki_large.json",
-    "fast": False, # set this to be true if speed is a concern
-    "output_path": "logs/" # logging directory
-}
+import argparse
 
-args = argparse.Namespace(**config)
+parser = argparse.ArgumentParser()
+parser.add_argument('--biencoder_model', type=str, default="models/biencoder_wiki_large.bin", help='filepath to file containing original entities')
+parser.add_argument('--biencoder_config', type=str, default="models/biencoder_wiki_large.json", help='filepath to file containing new entities to add')
+parser.add_argument('--entity_catalogue', type=str, default="models/entities_to_add.jsonl", help='directory to save output entities to')
+parser.add_argument('--entity_encoding', type=str, default='models/all_entities_large.t7', help='output file name')
+parser.add_argument('--crossencoder_model', type=str, default='models/crossencoder_wiki_large.bin', help='output file name')
+parser.add_argument('--crossencoder_config', type=str, default='models/crossencoder_wiki_large.json', help='output file name')
+args = parser.parse_args()
 
 # Load biencoder model and biencoder params just like in main_dense.py
 with open(args.biencoder_config) as json_file:
@@ -70,4 +64,4 @@ for entity in entities:
     ids.append(token_ids)
 
 ids = torch.tensor(ids)
-torch.save(ids, models_path+"new_entities.json")
+torch.save(ids, models_path+"new_entities_ids.json")

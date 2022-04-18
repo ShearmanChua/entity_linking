@@ -3,8 +3,6 @@ import os
 
 import argparse
 
-
-
 parser = argparse.ArgumentParser()
 parser.add_argument('--path_to_initial_entity_jsonl', type=str, required=True, help='filepath to file containing original entities')
 parser.add_argument('--path_to_entity_jsonl_to_append', type=str, required=True, help='filepath to file containing new entities to add')
@@ -30,9 +28,6 @@ with open(args.path_to_entity_jsonl_to_append, "r") as fin:
 
 
 json_list.extend(new_entities_list)
-# json_list.extend(
-#     {'text': 'Shearman Chua was born in Singapore, in the year 1996. He is an alumnus of NTU and is currently working at DSTA', 'idx': 'https://en.wikipedia.org/wiki?curid=88767376', 'title': 'Shearman Chua', 'entity': 'Shearman Chua'}
-# )
 
 with open(os.path.join(args.output_dir, args.output_filename), 'w') as outfile:
     for entry in json_list:

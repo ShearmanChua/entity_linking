@@ -1,5 +1,6 @@
 import blink.main_dense as main_dense
 import argparse
+import time
 
 models_path = "models/" # the path where you stored the BLINK models
 
@@ -15,12 +16,17 @@ config = {
     "crossencoder_model": models_path+"crossencoder_wiki_large.bin",
     "crossencoder_config": models_path+"crossencoder_wiki_large.json",
     "fast": False, # set this to be true if speed is a concern
-    "output_path": "logs/" # logging directory
+    "output_path": "logs/", # logging directory
+    "faiss_index": "hnsw",
+    "index_path": "models/faiss_index.pkl"
 }
 
 args = argparse.Namespace(**config)
 
+start = time.time()
 models = main_dense.load_models(args, logger=None)
+end = time.time()
+print("Time to load BLINK models",end - start)
 
 data_to_link = [ {
                     "id": 0,
@@ -72,6 +78,16 @@ data_to_link = [ {
                 }
                 ]
 
+start = time.time()
 _, _, _, _, _, predictions, scores, = main_dense.run(args, None, *models, test_data=data_to_link)
+end = time.time()
+print("Time to complete entity linking",end - start)
 
 print(predictions, scores)
+
+for i in range(0,len(data_to_link)):
+    print("Original sentence: ")
+    print(data_to_link[i]["context_left"] + " " + data_to_link[i]["mention"] + " " + data_to_link[i]["context_right"])
+    print("Entity linked: ", predictions[i][0])
+    print("Score: ", scores[i][0])
+    print("\n")
