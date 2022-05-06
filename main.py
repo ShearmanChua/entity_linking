@@ -42,7 +42,7 @@ data_to_link = [ {
                     "label_id": -1,
                     "context_left": "".lower(),
                     "mention": "Shearman Chua".lower(),
-                    "context_right": "was born in Singapore, in the year 1996. He is an alumnus of NTU and is currently working at DSTA".lower(),
+                    "context_right": "wgo recently graduated is currently working at DSTA".lower(),
                 },
                 {
                     "id": 2,
