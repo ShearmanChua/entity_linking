@@ -19,6 +19,7 @@ import os
 import torch
 from torch.utils.data import DataLoader, SequentialSampler
 from tqdm import tqdm
+import numpy as np
 
 models_path = "models/" # the path where you stored the BLINK models
 

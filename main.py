@@ -43,14 +43,6 @@ data_to_link = [ {
                     "context_right": "'s account of the Roman general Julius Caesar's murder by his friend Brutus is a meditation on duty.".lower(),
                 },
                 {
-                    "id": 1,
-                    "label": "unknown",
-                    "label_id": -1,
-                    "context_left": "".lower(),
-                    "mention": "Shearman Chua".lower(),
-                    "context_right": "wgo recently graduated is currently working at DSTA".lower(),
-                },
-                {
                     "id": 2,
                     "label": "unknown",
                     "label_id": -1,
@@ -74,14 +66,6 @@ data_to_link = [ {
                     "mention": "Obama".lower(),
                     "context_right": "has also gone kite-surfing with billionaire Richard Branson, spoken with young leaders in Chicago and paid a visit to his home state of Hawaii.".lower(),
                 },
-                {
-                    "id": 5,
-                    "label": "unknown",
-                    "label_id": -1,
-                    "context_left": "While COVID-related requirements vary widely across China, many localities have been taking increasingly cautious approaches recently. Dong said that his order numbers and earnings had dropped by half since the start of March due to the impact of the".lower(),
-                    "mention": "COVID-19".lower(),
-                    "context_right": "policies he had encountered.".lower(),
-                }
                 ]
 
 # start = time.time()
@@ -99,14 +83,14 @@ data_to_link = [ {
 #     print("\n")
 
 
-# inference = inference.Inference(data_to_link)
-# results = inference.run_inference()
-# print(results)
+inference = inference.Inference(data_to_link)
+results = inference.run_inference()
+print(results)
 
-new_entities = [{"text": " Shearman Chua was born in Singapore, in the year 1996. He is an alumnus of NTU and is currently working at DSTA. ", "idx": "https://en.wikipedia.org/wiki?curid=88767376", "title": "Shearman Chua", "entity": "Shearman Chua"},
-  {"text": " The COVID-19 recession is a global economic recession caused by the COVID-19 pandemic. The recession began in most countries in February 2020. After a year of global economic slowdown that saw stagnation of economic growth and consumer activity, the COVID-19 lockdowns and other precautions taken in early 2020 drove the global economy into crisis. Within seven months, every advanced economy had fallen to recession. The first major sign of recession was the 2020 stock market crash, which saw major indices drop 20 to 30% in late February and March. Recovery began in early April 2020, as of April 2022, the GDP for most major economies has either returned to or exceeded pre-pandemic levels and many market indices recovered or even set new records by late 2020. ", "idx": "https://en.wikipedia.org/wiki?curid=63462234", "title": "COVID-19 recession", "entity": "COVID-19 recession"},
-  {"text": " The COVID-19 pandemic, also known as the coronavirus pandemic, is an ongoing global pandemic of coronavirus disease 2019 (COVID-19) caused by severe acute respiratory syndrome coronavirus 2 (SARS-CoV-2). The novel virus was first identified from an outbreak in Wuhan, China, in December 2019. Attempts to contain it there failed, allowing the virus to spread worldwide. The World Health Organization (WHO) declared a Public Health Emergency of International Concern on 30 January 2020 and a pandemic on 11 March 2020. As of 15 April 2022, the pandemic had caused more than 502 million cases and 6.19 million deaths, making it one of the deadliest in history. ", "idx": "https://en.wikipedia.org/wiki?curid=62750956", "title": "COVID-19 pandemic", "entity": "COVID-19 pandemic"}]
+# new_entities = [{"text": " Shearman Chua was born in Singapore, in the year 1996. He is an alumnus of NTU and is currently working at DSTA. ", "idx": "https://en.wikipedia.org/wiki?curid=88767376", "title": "Shearman Chua", "entity": "Shearman Chua"},
+#   {"text": " The COVID-19 recession is a global economic recession caused by the COVID-19 pandemic. The recession began in most countries in February 2020. After a year of global economic slowdown that saw stagnation of economic growth and consumer activity, the COVID-19 lockdowns and other precautions taken in early 2020 drove the global economy into crisis. Within seven months, every advanced economy had fallen to recession. The first major sign of recession was the 2020 stock market crash, which saw major indices drop 20 to 30% in late February and March. Recovery began in early April 2020, as of April 2022, the GDP for most major economies has either returned to or exceeded pre-pandemic levels and many market indices recovered or even set new records by late 2020. ", "idx": "https://en.wikipedia.org/wiki?curid=63462234", "title": "COVID-19 recession", "entity": "COVID-19 recession"},
+#   {"text": " The COVID-19 pandemic, also known as the coronavirus pandemic, is an ongoing global pandemic of coronavirus disease 2019 (COVID-19) caused by severe acute respiratory syndrome coronavirus 2 (SARS-CoV-2). The novel virus was first identified from an outbreak in Wuhan, China, in December 2019. Attempts to contain it there failed, allowing the virus to spread worldwide. The World Health Organization (WHO) declared a Public Health Emergency of International Concern on 30 January 2020 and a pandemic on 11 March 2020. As of 15 April 2022, the pandemic had caused more than 502 million cases and 6.19 million deaths, making it one of the deadliest in history. ", "idx": "https://en.wikipedia.org/wiki?curid=62750956", "title": "COVID-19 pandemic", "entity": "COVID-19 pandemic"}]
 
-inference = inference.NewKBEntities(new_entities)
-inference.add_entities_to_kb()
+# inference = inference.NewKBEntities(new_entities)
+# inference.add_entities_to_kb()
 
