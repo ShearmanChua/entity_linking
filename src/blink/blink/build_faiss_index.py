@@ -52,7 +52,7 @@ if __name__ == '__main__':
     )
     parser.add_argument(
         "--candidate_encoding",
-        default="models/new_entities_large.t7",
+        default="models/all_entities_large.t7",
         type=str,
         help="file path for candidte encoding.",
     )
