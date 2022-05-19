@@ -462,11 +462,6 @@ def KBWrapper(cls):
 
             json_list.extend(new_entities_list)
 
-            with open(self.args.entities_to_add, 'w') as outfile:
-                for entry in new_entities_list:
-                    json.dump(entry, outfile)
-                    outfile.write('\n')
-
             with open(self.args.new_entity_catalogue, 'w') as outfile:
                 for entry in json_list:
                     json.dump(entry, outfile)
@@ -507,7 +502,6 @@ def KBWrapper(cls):
                 ids.append(token_ids)
 
             ids = torch.tensor(ids)
-            torch.save(ids, models_path+"new_entities_ids.json")
 
             return ids
 
@@ -537,12 +531,7 @@ def KBWrapper(cls):
             candidate_pool = biencoder_ids
 
             print(candidate_pool.shape)
-
-            save_file = "new_candidate_embeddings.t7"
-            print("Saving in: {}".format(save_file))
-            f = open(save_file, "w").close()
-
-            
+      
             candidate_encoding = encode_candidate(
                 biencoder,
                 candidate_pool,
@@ -551,10 +540,7 @@ def KBWrapper(cls):
                 logger,
             )
             
-            print(candidate_encoding)
-
-            if save_file is not None:
-                torch.save(candidate_encoding, save_file)
+            print(candidate_encoding.shape)
 
             print(candidate_encoding[0,:10])
 
